@@ -120,12 +120,12 @@ dbListObjects(con)
 
 # dafür erstellen wir einen View mit der Anzahl aller einheimischen Arten pro Park. Wir benutzen dafür den WHERE Befehl (WHERE nativeness='Native'). Gruppieren tun wir nach Parkname
 
-dbExecute(con, "CREATE VIEW native AS SELECT Park_Name, count(nativeness) AS native FROM species WHERE nativeness='Native' GROUP BY Park_Name")
+dbExecute(con, "CREATE VIEW native AS SELECT Park_Name, count(nativeness) AS native FROM species WHERE nativeness='Native' AND occurrence='Present' GROUP BY Park_Name")
 
 dbGetQuery(con,"SELECT * FROM native")
 
 #  wir erstellen dann einen View mit der Anzahl aller nichteinheimschen Arten pro Park. (WHERE nativeness='Not Native')  
-dbExecute(con, "CREATE VIEW notnative AS SELECT Park_Name, count(nativeness) AS nonative FROM species WHERE nativeness='Not Native' GROUP BY Park_Name")
+dbExecute(con, "CREATE VIEW notnative AS SELECT Park_Name, count(nativeness) AS nonative FROM species WHERE nativeness='Not Native' AND occurrence='Present' GROUP BY Park_Name")
 
 dbGetQuery(con,"SELECT * FROM notnative")
 
@@ -203,7 +203,7 @@ p
 
 
 
-dbExecute(con, "CREATE VIEW coyote AS SELECT park_name, FROM species WHERE scientific_name='Canis latrans'")
+dbExecute(con, "CREATE VIEW coyote AS SELECT park_name, FROM species WHERE scientific_name='Canis latrans' AND occurrence='Present'")
 
 dbGetQuery(con, "SELECT * FROM coyote")
 
